@@ -1,0 +1,131 @@
+version: 2
+
+sources:
+  - name: staging
+    schema: staging
+    database: ecommerce_db
+    tables:
+      - name: STG_CUSTOMERS
+      - name: STG_GEOLOCATION
+      - name: STG_ORDERS
+      - name: STG_ORDER_ITEMS
+      - name: STG_ORDER_PAYMENTS
+      - name: STG_ORDER_REVIEWS
+      - name: STG_PRODUCTS
+      - name: STG_PRODUCT_CATEGORY_NAME_TRANSLATION
+      - name: STG_SELLERS
+
+models:
+  - name: dim_customers
+    description: "Dimensional table for customers."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer."
+        tests:
+          - unique
+          - not_null
+  
+  - name: dim_sellers
+    description: "Dimensional table for sellers"
+    columns:
+      - name: seller_id
+        description: "Unique identifier for each seller."
+        tests:
+          - unique
+          - not_null
+  
+  - name: dim_products
+    description: "Dimensional table for products."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: "Dimensional table for dates."
+    columns:
+      - name: date_id
+        description: "Unique identifier for each date."
+        tests:
+          - unique
+          - not_null
+  
+  - name: fact_orders
+    description: "Fact table for orders."
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Identifier for the customer who placed the order."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: purchase_date_id
+        description: "Identifier for the purchase date."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+      - name: approved_date_id
+        description: "Identifier for the approved date."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+      - name: delivered_carrier_date_id
+        description: "Identifier for the delivered carrier date."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+      - name: delivered_customer_date_id
+        description: "Identifier for the delivered customer date ID."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+      - name: estimated_delivery_date_id
+        description: "Identifier for the estimated delivery date."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+          
+  - name: fact_order_items
+    description: "Fact table for order items."
+    columns:
+      - name: order_id
+        description: "Identifier for the order associated with the item."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fact_orders')
+              field: order_id
+      - name: product_id
+        description: "Identifier for the product in the order item."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+      - name: seller_id
+        description: "Identifier for the seller of the product."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_sellers')
+              field: seller_id
+      - name: shipping_limit_date_id
+        description: "Identifier for the shipping limit date."
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_id

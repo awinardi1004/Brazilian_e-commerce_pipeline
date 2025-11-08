@@ -9,3 +9,9 @@ airflow-webserver.pid
 webserver_config.py
 airflow.cfg
 airflow.db
+
+# dbt profiles and sensitive files
+dbt/data_pipeline/profiles.yml
+dags/dbt/data_pipeline/profiles.yml
+**/profiles.yml
+*.profiles.yml
