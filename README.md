@@ -85,10 +85,13 @@ Focuses on analyzing product and seller performance based on sales quantity and 
 * **Containerization**: Docker
 
 ## Future Improvements
-Add customer retention & cohort analysis
+* Add Customer Retention & Cohort Analysis
+* Automate Power BI Dataset Refresh
+* Implement Incremental Data Loading for better performance
+* Add Data Validation & Quality Checks using dbt tests or Great Expectation
 
-Automate Power BI dataset refresh
-
-Integrate Airbyte for data ingestion
-
-Add data quality monitoring (Great Expectations / dbt tests)
+# 👤 Author
+**Winardi**  
+Data Engineer | Data Enthusiast  
+📧 awinardi1004@gmail.com  
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/winardi-/)
