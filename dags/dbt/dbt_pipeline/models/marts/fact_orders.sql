@@ -16,7 +16,7 @@ with base_orders as (
     select distinct
         so."order_id" as order_id,
         sc."customer_unique_id" as customer_id,
-        "order_status" as tatus,
+        "order_status" as status,
         nullif(so."order_purchase_timestamp", '') as purchase_timestamp_id,
         nullif(so."order_approved_at", '') as approved_timestamp_id,
         nullif(so."order_delivered_carrier_date", '') as delivered_carrier_timestamp_id,
