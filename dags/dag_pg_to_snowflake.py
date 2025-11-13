@@ -204,9 +204,9 @@ with DAG(
         target_table_name = 'stg_{}'.format(clean_name)  # Menjadi stg_customers, stg_orders, dll
         
         task = PythonOperator(
-            task_id='elt_{}'.format(clean_name),
+            task_id='load_{}'.format(clean_name),
             python_callable=elt_table,
-            op_args=[table, target_table_name]  # Pass both source and target table names
+            op_args=[table, target_table_name] 
         )
         elt_tasks.append(task)
     
